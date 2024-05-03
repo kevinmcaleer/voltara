@@ -15,4 +15,3 @@
 
     * Flicker the light
     * Glow effect
-
