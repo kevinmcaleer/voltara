@@ -16,7 +16,7 @@ def convert_to_black_and_white(image_path, width, height):
     return pixel_values
 
 # Example usage:
-image_path = "example.png"
+image_path = "Voltara Speaks.png"
 width = 75
 height = 75
 

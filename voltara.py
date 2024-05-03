@@ -1,13 +1,15 @@
 import Adafruit_Thermal as adafruit_thermal_printer
-from fortune import fortune
 import serial
+
+#from fortune import fortune
+# import serial
 uart = serial.Serial("/dev/serial0", baudrate=19200, timeout=3000)
 
 
 
-ThmeralPrinter = adafruit_thermal_printer.get_printer_class(2.68)
+#ThmeralPrinter = adafruit_thermal_printer.get_printer_class(2.68)
 
-printer = ThmeralPrinter(uart)
+printer = ThermalPrinter(uart)
 
 printer.test_page()
 printer.feed(2)
@@ -20,7 +22,7 @@ printer.underline = None
 printer.sie = adafruit_thermal_printer.SIZE_SMALL
 printer.justify = adafruit_thermal_printer.JUSTIFY_LEFT
 printer.feed(2)
-printer.print(fortune())
+printer.print("Hello, world")
 printer.feed(2)
 printer.print("----------------------------------")
 printer.print("https://www.kevsrobots.com/voltara")
