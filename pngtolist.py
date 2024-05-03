@@ -22,3 +22,13 @@ height = 75
 
 data = convert_to_black_and_white(image_path, width, height)
 print(data)
+
+def write_pixel_data_to_file(data, filename):
+    with open(filename, "w") as file:
+        file.write("data = [\n")
+        for i in range(0, len(data), 10):
+            file.write("  " + ",".join([hex(x) for x in data[i:i+10]]) + ",\n")
+        file.write("]\n")
+
+write_pixel_data_to_file(data, "pixel_data.py")
+

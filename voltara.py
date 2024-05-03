@@ -1,28 +1,26 @@
-import Adafruit_Thermal as adafruit_thermal_printer
 import serial
+from gpiozero import Button
+from Adafruit_Thermal import *
 
-#from fortune import fortune
-# import serial
-uart = serial.Serial("/dev/serial0", baudrate=19200, timeout=3000)
-
-
-
-#ThmeralPrinter = adafruit_thermal_printer.get_printer_class(2.68)
-
-printer = ThermalPrinter(uart)
-
-printer.test_page()
+printer = Adafruit_Thermal("/dev/serial0", 19200, timeout=5)
+printer.setTimes(35000, 2100)
 printer.feed(2)
 
-printer.underline = adafruit_thermal_printer.UNDERLINE_THICK
-printer.size = adafruit_thermal_printer.SIZE_MEDIUM
-printer.justify = adafruit_thermal_printer.JUSTIFY_CENTER
+button = Button(23)
+
+button.wait_for_press()
+
+printer.feed(2)
+
+printer.underlineOn()
+printer.setSize("M")
+printer.justify('C')
 printer.print(' --= Voltara Fortune Teller =--\n\n')
-printer.underline = None
-printer.sie = adafruit_thermal_printer.SIZE_SMALL
-printer.justify = adafruit_thermal_printer.JUSTIFY_LEFT
+printer.underlineOff()
+printer.setSize("S")
+printer.justify("L")
 printer.feed(2)
-printer.print("Hello, world")
+printer.print("Your Wish is granted")
 printer.feed(2)
 printer.print("----------------------------------")
 printer.print("https://www.kevsrobots.com/voltara")
