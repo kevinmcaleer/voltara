@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 from Adafruit_Thermal import *
-import gfx.pixel_data as pixel_data
+import gfx.adalogo as pixel_data
 
 printer = Adafruit_Thermal("/dev/serial0", 19200, timeout=5)
 printer.setTimes(35000, 2100)
