@@ -1,6 +1,7 @@
 import serial
 from voltara.button import button
 from Adafruit_Thermal import *
+from time import sleep
 
 printer = Adafruit_Thermal("/dev/serial0", 19200, timeout=5)
 printer.setTimes(35000, 2100)
@@ -9,6 +10,7 @@ printer.setTimes(35000, 2100)
 # printer.testPage()
 
 while  KeyboardInterrupt:
+    print("Press button for Fortune")
     button.wait_for_press()
 
     printer.feed(5)
@@ -28,3 +30,4 @@ while  KeyboardInterrupt:
 
     printer.feed(4)
     printer.reset()
+    sleep(5)
