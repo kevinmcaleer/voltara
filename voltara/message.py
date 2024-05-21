@@ -36,9 +36,10 @@ Include any additional notes or remarks about the module, such as known issues, 
 """
 
 from Adafruit_Thermal import *
+import subprocess
 
 HEADER = "--= Voltara Speakers =--"
-FOOTER = "https://www.kevsrobots.com/voltara"
+FOOTER = "https://kevsrobots.com/voltara"
 
 
 class Message:
@@ -56,7 +57,8 @@ class Message:
     
     def print_header(self):
         """ Prints the header message """
-        self.printer.feed(2)
+        print(HEADER)
+        self.printer.feed(5)
 
         self.printer.underlineOn()
         self.printer.setSize("M")
@@ -66,22 +68,55 @@ class Message:
     def print_footer(self):
         """ Prints the footer message """
 
+        print(FOOTER)
         self.printer.underlineOff()
         self.printer.setSize("S")
         self.printer.justify("L")
         self.printer.feed(2)
         self.printer.print(FOOTER)
+        self.printer.feed(5)
+
+    def format_message(self, message, line_length):
+        words = message.split()
+        formatted_lines = []
+        current_line = ""
+        
+        for word in words:
+            if len(current_line) + len(word) + 1 <= line_length:
+                if current_line:
+                    current_line += " " + word
+                else:
+                    current_line = word
+            else:
+                formatted_lines.append(current_line)
+                current_line = word
+        
+        if current_line:
+            formatted_lines.append(current_line)
+        
+        return '\n'.join(formatted_lines)
 
     def print_fortune(self):
         """ Prints the fortune """
 
-        # TODO: Insert code here for fortune
+        result = subprocess.run(['fortune',  '-a',  '-s'], capture_output=True, text=True)
+        if result.returncode == 0:
+            self.message = result.stdout.strip()
+            
+
+        else:
+            print("failed to generate a fortune")
+            self.message = "Your wish is granted"
+            return
+
         self.printer.underlineOff()
         self.printer.setSize("S")
         self.printer.justify("L")
         self.printer.feed(2)
         
+        self.message = self.format_message(self.message, 32)
+
         print(self.message)
-        # self.printer.print(self.message)
+        self.printer.print(self.message)
 
         self.printer.feed(2)
