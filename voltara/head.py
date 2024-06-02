@@ -56,4 +56,4 @@ class Head():
 
         # Clean up everything
         self.p.stop()                 # At the end of the program, stop the PWM
-        GPIO.cleanup()           # Resets the GPIO pins back to defaults
+        # GPIO.cleanup()           # Resets the GPIO pins back to defaults

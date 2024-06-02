@@ -99,7 +99,7 @@ class Message:
     def print_fortune(self):
         """ Prints the fortune """
 
-        result = subprocess.run(['fortune',  '-a',  '-s'], capture_output=True, text=True)
+        result = subprocess.run(['/usr/games/fortune', '-a',  '-s'], capture_output=True, text=True)
         if result.returncode == 0:
             self.message = result.stdout.strip()
             
