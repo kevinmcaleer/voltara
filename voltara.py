@@ -1,8 +1,12 @@
 import serial
 from voltara.button import button
+from voltara.lights import CystalBall
+from voltara.head import Head
 from Adafruit_Thermal import *
 from time import sleep
 
+ball = CystalBall()
+head = Head()
 printer = Adafruit_Thermal("/dev/serial0", 19200, timeout=5)
 printer.setTimes(35000, 2100)
 # printer.feed(2)
@@ -12,6 +16,9 @@ printer.setTimes(35000, 2100)
 while  KeyboardInterrupt:
     print("Press button for Fortune")
     button.wait_for_press()
+
+    ball.on()
+    head.open_close()
 
     printer.feed(5)
 
@@ -31,3 +38,6 @@ while  KeyboardInterrupt:
     printer.feed(4)
     printer.reset()
     sleep(5)
+    ball.off()
+    ball.stop()
+    head.stop()
