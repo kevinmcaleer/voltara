@@ -38,7 +38,7 @@ Include any additional notes or remarks about the module, such as known issues, 
 from Adafruit_Thermal import *
 import subprocess
 
-HEADER = "--= Voltara Speakers =--"
+HEADER = "--= Voltara Speaks =--"
 FOOTER = "https://kevsrobots.com/voltara"
 
 
